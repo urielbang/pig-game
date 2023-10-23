@@ -26,7 +26,7 @@ const diceRollFunc = () => {
   diceEL.classList.remove('hidden');
 
   diceEL.src = `dice-${rndNum}.png`;
-  if (rndNum == 1 || sumScorePlayer1 > 100) {
+  if (rndNum == 1) {
     //!if player 1 active
     if (player1.classList.contains('player--active')) {
       player1.classList.remove('player--active');
@@ -57,6 +57,9 @@ btnHold.addEventListener('click', () => {
   if (player1.classList.contains('player--active')) {
     holdSum1 += sumScorePlayer1;
     score0EL.textContent = holdSum1;
+    if (holdSum1 > 100) {
+      player1.classList.toggle('player--winner');
+    }
     current1.textContent = 0;
     sumScorePlayer1 = 0;
     player1.classList.remove('player--active');
@@ -64,6 +67,9 @@ btnHold.addEventListener('click', () => {
   } else {
     holdSum2 += sumScorePlayer1;
     score1EL.textContent = holdSum2;
+    if (holdSum2 > 100) {
+      player2.classList.toggle('player--winner');
+    }
     current2.textContent = 0;
     sumScorePlayer1 = 0;
     player2.classList.remove('player--active');
@@ -75,9 +81,13 @@ btnNew.addEventListener('click', () => {
   score0EL.textContent = 0;
   score1EL.textContent = 0;
   current1.textContent = 0;
+  holdSum1 = 0;
+  holdSum2 = 0;
   current2.textContent = 0;
   sumScorePlayer1 = 0;
   diceEL.classList.add('hidden');
   player2.classList.remove('player--active');
   player1.classList.add('player--active');
+  player1.classList.remove('player--winner');
+  player2.classList.remove('player--winner');
 });
